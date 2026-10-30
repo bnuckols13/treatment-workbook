@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Treatment Workbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1C1917; --ink-2:#57534E; --ink-3:#8A847D;
+  --bg:#FAFAF7; --surface:#FFFFFF; --border:#E7E5E4; --soft:#F4F2EE;
+  --accent:#4F7A80; --accent-bg:#E8F0F1;
+  --red:#C2410C; --green:#3F7D4E; --blue:#3B5F9E;
+  --display:'Newsreader',Georgia,serif;
+  --body:'Inter',-apple-system,'Segoe UI',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:1.6rem 16px 3rem}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.2;margin:0}
+h1{font-size:2.4rem;letter-spacing:-.02em;margin-bottom:.6rem}
+h2{font-size:1.7rem;margin-bottom:.3rem}
+h3{font-size:1.2rem;margin:1.4rem 0 .4rem}
+p{margin:0 0 .7rem}
+.label{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}
+.sub{color:var(--ink-2);max-width:64ch}
+.privacy{font-size:.9rem;color:var(--ink-2);background:var(--accent-bg);border-left:3px solid var(--accent);padding:.7rem 1rem;margin:1rem 0;max-width:64ch}
+.who{display:flex;gap:1rem;flex-wrap:wrap;margin:1.2rem 0}
+.who label{flex:1 1 220px}
+.toc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;margin:1.4rem 0}
+.toc ol{margin:.3rem 0 0;padding-left:1.3rem}
+.toc li{margin:.15rem 0}
+.toc ol ol{list-style:lower-alpha}
+a{color:var(--accent)}
+.toolbar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--border);padding:.5rem 0;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.toolbar .saved{font-size:.8rem;color:var(--ink-3);margin-left:auto}
+button{font:inherit;font-size:.88rem;font-weight:500;border:1px solid var(--border);background:var(--surface);color:var(--ink);border-radius:8px;padding:.4rem .8rem;cursor:pointer}
+button:hover{background:var(--soft)}
+button.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+section.part{margin-top:2.6rem;padding-top:1rem;border-top:2px solid var(--ink)}
+.sheet{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.3rem;margin:1.2rem 0}
+.sheet > h2{font-size:1.45rem}
+.how{font-size:.92rem;color:var(--ink-2);max-width:68ch}
+label{display:block;font-size:.88rem;font-weight:500;color:var(--ink-2)}
+input,textarea,select{font:inherit;font-size:.95rem;color:var(--ink);width:100%;border:1px solid var(--border);border-radius:6px;padding:.4rem .5rem;background:#fff;margin-top:.2rem}
+textarea{min-height:4.2rem;resize:vertical;line-height:1.5}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:0;border-color:var(--accent)}
+.q{margin:.9rem 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.entry{border:1px solid var(--border);border-radius:8px;padding:.9rem 1rem;margin:.9rem 0;background:var(--bg)}
+.entry h4{margin:0 0 .4rem;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:.6rem 0}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{border:1px solid var(--border);padding:.3rem;vertical-align:top;text-align:left}
+th{background:var(--soft);font-weight:600;font-size:.8rem;color:var(--ink-2)}
+td input,td select,td textarea{margin:0;padding:.3rem;font-size:.88rem}
+td textarea{min-height:3rem}
+table.days td,table.days th{text-align:center}
+table.days th:first-child,table.days td:first-child{text-align:left;min-width:9.5rem}
+table.days input,table.days select{min-width:3.2rem;text-align:center}
+tr.grp th{background:var(--accent-bg);color:var(--ink);text-align:left}
+.legend{font-size:.82rem;color:var(--ink-2);background:var(--soft);border-radius:6px;padding:.6rem .8rem}
+.legend ol{margin:.2rem 0 0;padding-left:1.4rem}
+.therm td.n{font-weight:600;text-align:center;width:3.2rem}
+.therm tr.z-red td.n{color:var(--red)}
+.therm tr.z-green td.n{color:var(--green)}
+.therm tr.z-blue td.n{color:var(--blue)}
+.therm select{width:7rem}
+.hier .lvl{border-left:4px solid var(--accent);padding:.2rem 0 .2rem .8rem;margin:.8rem 0}
+.foot{margin-top:3rem;text-align:center;font-size:.82rem;color:var(--ink-3);line-height:1.8}
+.foot strong{color:var(--ink-2)}
+@media (max-width:640px){
+  h1{font-size:1.9rem}
+  .grid2{grid-template-columns:1fr}
+  .sheet{padding:1rem .9rem}
+}
+@media print{
+  body{font-size:11pt;background:#fff}
+  .toolbar,.toc,.privacy,.noprint{display:none !important}
+  .sheet{border:none;padding:0;break-inside:auto}
+  section.part{break-before:page;border-top:none}
+  .entry{break-inside:avoid}
+  input,textarea,select{border:none;border-bottom:1px solid #999;border-radius:0;padding:.1rem}
+  textarea{min-height:0;resize:none}
+  .scroll{overflow:visible}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="toolbar noprint">
+  <button class="primary" onclick="window.print()">Print or save as PDF</button>
+  <button id="clear">Clear everything</button>
+  <span class="saved" id="saved">Saved on this device</span>
+</div>
+
+<header style="margin-top:1.4rem">
+  <div class="label">Between-session assignments</div>
+  <h1>Treatment Workbook</h1>
+  <p class="sub">This workbook has three parts: a CBT thought record, a DBT diary card, and the Section 3 assignments with the pages you repeat each week. Fill in what your therapist assigned, then bring it to your next session.</p>
+  <p class="privacy">What you type is kept in the browser on this device and is not sent anywhere, including to your therapist. To share it, print it or save it as a PDF and send that. If you clear your browser data, the entries go with it.</p>
+  <div class="who">
+    <label>Name<input data-k="name" autocomplete="off"></label>
+    <label>Week of<input data-k="week" type="date"></label>
+  </div>
+</header>
+
+<nav class="toc">
+  <strong>Contents</strong>
+  <ol>
+    <li><a href="#thought-record">CBT Thought Record</a></li>
+    <li><a href="#diary-card">DBT Diary Card</a></li>
+    <li><a href="#section-3">Section 3: Early Treatment Assignments</a>
+      <ol>
+        <li><a href="#change-process">Change Process Table</a></li>
+        <li><a href="#food-blueprint">Individual Food Blueprint</a></li>
+        <li><a href="#safety">Safety Exploration Assignment</a></li>
+        <li><a href="#hierarchy">DBT Target Behavior Hierarchy</a></li>
+        <li><a href="#thermometer">Personal Emotional Thermometer</a></li>
+        <li><a href="#exposure">Exposure Tracking</a></li>
+        <li><a href="#vulnerability">Vulnerability Reduction and Consequence Repair</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+
+<!-- 1. CBT THOUGHT RECORD -->
+<section class="part" id="thought-record">
+  <div class="label">Part 1</div>
+  <h2>CBT Thought Record</h2>
+  <p class="how">Use this when your mood shifts and you notice it. Write down the situation while it is fresh, the thought that came first, and how strongly you felt it. Then look at the evidence on both sides and write a thought that fits all of it. Rate the feeling again at the end. One entry a day is plenty.</p>
+  <div class="legend">
+    <strong>Columns</strong>
+    <ol>
+      <li><b>Situation:</b> where you were, who was there, what was happening.</li>
+      <li><b>Feelings:</b> one word for each feeling, rated 0 to 100.</li>
+      <li><b>Automatic thought:</b> what went through your mind. Circle or mark the one that feels hottest.</li>
+      <li><b>Evidence for</b> the hot thought: facts, not interpretations.</li>
+      <li><b>Evidence against</b> the hot thought: anything that does not fit it.</li>
+      <li><b>Balanced thought:</b> a thought that accounts for both columns. Rate how much you believe it, 0 to 100.</li>
+      <li><b>Feelings now:</b> rate the same feelings again, and note any new ones.</li>
+    </ol>
+  </div>
+  <div id="tr-entries"></div>
+</section>
+
+<!-- 2. DBT DIARY CARD -->
+<section class="part" id="diary-card">
+  <div class="label">Part 2</div>
+  <h2>DBT Diary Card</h2>
+  <p class="how">Fill it in each day if you can. Write your three target behaviors from your hierarchy in the first rows, then rate the urge (0 to 5) and mark whether you acted on it. Rate emotions 0 to 5. Rate your overall intensity on your Personal Emotional Thermometer (minus 10 to plus 10). List the skills you are practicing and rate each day with the legend below.</p>
+  <div class="grid2">
+    <label>Target behaviors for the week of<input data-k="dc.week" type="date"></label>
+    <label>How often did you fill in the card?
+      <select data-k="dc.freq"><option></option><option>Daily</option><option>2 to 3 times per week</option><option>Once a week</option></select>
+    </label>
+  </div>
+  <div class="scroll"><table class="days" id="dc-table"></table></div>
+  <div class="legend">
+    <strong>Skill usage ratings</strong>
+    <ol start="0">
+      <li>Not thought about or used</li>
+      <li>Thought about, not used, didn't want to</li>
+      <li>Thought about, not used, wanted to</li>
+      <li>Tried but couldn't use them</li>
+      <li>Tried, could use them, but they didn't help</li>
+      <li>Tried, could use them, helped</li>
+      <li>Automatically used them, didn't help</li>
+      <li>Automatically used them, helped</li>
+    </ol>
+  </div>
+</section>
+
+<!-- 3. SECTION 3 -->
+<section class="part" id="section-3">
+  <div class="label">Part 3</div>
+  <h2>Section 3: Early Treatment Assignments</h2>
+  <p class="how">The first three pages are the early-stage assignments. The pages after them (hierarchy, thermometer, exposure tracking, vulnerability and repair plans) are updated every week alongside the diary card in Part 2.</p>
+
+  <div class="sheet" id="change-process">
+    <h2>Change Process Table</h2>
+    <p class="how">List the eating disorder behaviors that get in the way of a life worth living. For each one, work across the row.</p>
+    <div id="cp-rows"></div>
+  </div>
+
+  <div class="sheet" id="food-blueprint">
+    <h2>Individual Food Blueprint</h2>
+    <p class="how">Our relationship with food is shaped by what we lived through, how we were raised, and our cultural background. Take a few minutes with each question and write what comes to mind.</p>
+    <div id="fb-qs"></div>
+  </div>
+
+  <div class="sheet" id="safety">
+    <h2>Safety Exploration Assignment</h2>
+    <p class="how">Safety cues are the signals that tell your body and mind you are safe enough. Notice them over the next two weeks and add to the lists as you go.</p>
+    <div class="q"><label>What does safety mean to me, in my own words?<textarea data-k="sf.def"></textarea></label></div>
+    <div id="sf-cues"></div>
+    <div class="q"><label>One cue I can feel in my body and will practice every day for the next two weeks<textarea data-k="sf.embodied"></textarea></label></div>
+    <div class="q"><label>When and how I'll practice it<textarea data-k="sf.practice"></textarea></label></div>
+    <div class="q"><label>My safety map: the people, places, objects, and practices that help me feel safe, and how close each one is to me. Describe it here, or draw it on paper and bring it to session.<textarea data-k="sf.map" style="min-height:7rem"></textarea></label></div>
+  </div>
+
+  <div class="sheet hier" id="hierarchy">
+    <h2>DBT Target Behavior Hierarchy</h2>
+    <p class="how">Update this to reflect your current target behaviors. Look back at your admission hierarchy for examples.</p>
+    <div id="hi-levels"></div>
+  </div>
+
+  <div class="sheet" id="thermometer">
+    <h2>Personal Emotional Thermometer</h2>
+    <p class="how">Describe the feelings and body sensations you have at each point from minus 10 to plus 10, and mark each point's color. Green is your usual window of tolerance, where you feel more regulated and grounded. Blue is where you feel shut down or disconnected. Red is where you feel agitated, anxious, or angry. You will use these numbers on the diary card and the exposure tracking pages.</p>
+    <div class="scroll"><table class="therm" id="th-table"></table></div>
+  </div>
+
+  <div class="sheet" id="exposure">
+    <h2>Exposure Tracking: Supporting a Life Worth Living</h2>
+    <p class="how">Rate activation on your Personal Emotional Thermometer, minus 10 to plus 10: before the exposure, at the highest or lowest point, and at the end.</p>
+    <h3>Assigned exposures</h3>
+    <div id="ex-assigned"></div>
+    <h3>Program exposures</h3>
+    <div id="ex-program"></div>
+  </div>
+
+  <div class="sheet" id="vulnerability">
+    <h2>Vulnerability Reduction Plan</h2>
+    <p class="how">Five things you will do this week to lower your vulnerability to the target behaviors (sleep, regular eating, movement within your plan, medication, contact with supports).</p>
+    <div id="vr-list"></div>
+    <h2 style="margin-top:1.4rem">Consequence Repair Plan</h2>
+    <p class="how">If a target behavior happens, three things you will do to repair its effects on you, others, or your treatment.</p>
+    <div id="cr-list"></div>
+  </div>
+</section>
+
+<div class="foot">
+  <p>This workbook goes along with treatment. It is not a substitute for it.</p>
+  <p><strong>If you need support right now</strong> &middot; 988 Suicide &amp; Crisis Lifeline: call or text 988 &middot; Crisis Text Line: text HOME to 741741 &middot; In an emergency, call 911 &middot; Follow your safety plan</p>
+</div>
+</div>
+
+<script>
+(function(){
+  var KEY = 'treatment-workbook:v1';
+  var DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  function el(html){ var t = document.createElement('template'); t.innerHTML = html.trim(); return t.content; }
+  function ta(k, lbl){ return '<div class="q"><label>' + lbl + '<textarea data-k="' + k + '"></textarea></label></div>'; }
+  function inp(k, lbl, type){ return '<label>' + lbl + '<input data-k="' + k + '"' + (type ? ' type="' + type + '"' : '') + '></label>'; }
+  function opts(list){ return '<option></option>' + list.map(function(v){ return '<option>' + v + '</option>'; }).join(''); }
+  function range(a, b){ var r = []; for (var i = a; i <= b; i++) r.push(i); return r; }
+
+  // Thought record: seven entries
+  var tr = document.getElementById('tr-entries');
+  for (var i = 1; i <= 7; i++){
+    var p = 'tr' + i + '.';
+    tr.appendChild(el('<div class="entry"><h4>Entry ' + i + '</h4><div class="grid2">' +
+      inp(p + 'date', 'Date and time', 'datetime-local') + '<span></span></div>' +
+      ta(p + 'sit', '1. Situation') + ta(p + 'feel', '2. Feelings (rate 0 to 100)') +
+      ta(p + 'auto', '3. Automatic thought, with the hot thought marked') +
+      '<div class="grid2">' + ta(p + 'for', '4. Evidence for') + ta(p + 'against', '5. Evidence against') + '</div>' +
+      ta(p + 'alt', '6. Balanced thought (belief 0 to 100)') + ta(p + 'after', '7. Feelings now (rate 0 to 100)') + '</div>'));
+  }
+
+  // Diary card
+  var dc = document.getElementById('dc-table'), h = '<tr><th>Item</th>' + DAYS.map(function(d){ return '<th>' + d + '</th>'; }).join('') + '</tr>';
+  function dayRow(k, label, cell){ return '<tr><td>' + label + '</td>' + DAYS.map(function(d){ return '<td>' + cell(k + '.' + d) + '</td>'; }).join('') + '</tr>'; }
+  var urge = function(k){ return '<select data-k="' + k + '" aria-label="urge">' + opts(range(0, 5)) + '</select>'; };
+  var yn = function(k){ return '<select data-k="' + k + '" aria-label="action">' + opts(['Y','N']) + '</select>'; };
+  var emo = function(k){ return '<select data-k="' + k + '">' + opts(range(0, 5)) + '</select>'; };
+  var intensity = function(k){ return '<select data-k="' + k + '">' + opts(range(-10, 10)) + '</select>'; };
+  var skill = function(k){ return '<select data-k="' + k + '">' + opts(range(0, 7)) + '</select>'; };
+  h += '<tr class="grp"><th colspan="8">Target behaviors</th></tr>';
+  [['li','Life threatening'],['ti','Therapy interfering'],['ql','Quality of life interfering']].forEach(function(t){
+    h += '<tr><td colspan="8"><label>' + t[1] + ' target<input data-k="dc.' + t[0] + '.name"></label></td></tr>';
+    h += dayRow('dc.' + t[0] + '.urge', 'Urge 0 to 5', urge) + dayRow('dc.' + t[0] + '.act', 'Acted on it? Y/N', yn);
+  });
+  h += '<tr class="grp"><th colspan="8">Emotions, 0 to 5</th></tr>';
+  ['Pain or hurt','Sadness','Shame','Anger','Fear','Disgust','Jealousy','Guilt','Joy','Trust'].forEach(function(e){ h += dayRow('dc.emo.' + e, e, emo); });
+  h += '<tr class="grp"><th colspan="8">Emotional intensity, Personal Emotional Thermometer</th></tr>';
+  h += dayRow('dc.int', 'Minus 10 to plus 10', intensity);
+  h += '<tr class="grp"><th colspan="8">DBT skills, rated 0 to 7</th></tr>';
+  for (var s = 1; s <= 6; s++) h += dayRow('dc.sk' + s, '<input data-k="dc.sk' + s + '.name" placeholder="Skill ' + s + '">', skill);
+  dc.innerHTML = h;
+
+  // Change Process Table: five behaviors
+  var cp = document.getElementById('cp-rows');
+  for (var c = 1; c <= 5; c++){
+    var q = 'cp' + c + '.';
+    cp.appendChild(el('<div class="entry"><h4>Behavior ' + c + '</h4>' +
+      ta(q + 'beh', 'Eating disorder behavior (a barrier to a life worth living)') +
+      ta(q + 'fn', 'What is its function? What need am I trying to meet?') +
+      '<div class="grid2"><label>How ready am I to change it, 1 to 10?<select data-k="' + q + 'ready">' + opts(range(1, 10)) + '</select></label><span></span></div>' +
+      ta(q + 'stop', "What's stopping me? What would make me more ready?") +
+      ta(q + 'week', 'Is there a part of this behavior I want to work on this week?') +
+      ta(q + 'map', 'Can I use this as a target on my trajectory map?') + '</div>'));
+  }
+
+  // Food Blueprint
+  var fb = document.getElementById('fb-qs');
+  [
+    'How do your friends or close circle (roommates, co-workers) act around food? What do they say or believe about eating?',
+    "How do your parents or caregivers act around food? What do they say or believe about eating? If you're an adult, is this different from when you were growing up? How?",
+    'How do your siblings, if you have any, act around food? What do they say or believe about eating?',
+    'How do other family members (aunts, uncles, cousins) act around food? What do they say or believe about eating?',
+    "How does your partner act around food? What do they say or believe about eating? Any habits that stand out? If you're not in a relationship now, any past partners worth noting?",
+    'What about other important people in your life, such as a teacher, coach, or family friend? What have you noticed about how they act around food? Has it influenced you?',
+    'What do you know about your early feeding experiences: what you were fed as an infant, how starting solid foods went, whether anyone called you a picky eater?'
+  ].forEach(function(t, i){ fb.appendChild(el(ta('fb.' + i, (i + 1) + '. ' + t))); });
+
+  // Safety cues
+  var sf = document.getElementById('sf-cues');
+  [['int','Internal cues','thoughts, sensations, or feelings inside me that signal safety'],
+   ['rel','Relational cues','people, voices, faces, or ways of being with others'],
+   ['env','Environmental cues','places, sounds, smells, objects, light']].forEach(function(g){
+    var html = '<h3>' + g[1] + '</h3><p class="how">' + g[2] + '</p>';
+    for (var n = 1; n <= 5; n++) html += '<div class="q">' + inp('sf.' + g[0] + n, n + '.') + '</div>';
+    sf.appendChild(el(html));
+  });
+
+  // Hierarchy
+  var hi = document.getElementById('hi-levels');
+  [['lwl','Create a life worth living'],['skills','Increase behavioral skills'],['t3','Target 3: Quality of life interfering behaviors'],
+   ['t2','Target 2: Therapy interfering behaviors'],['t1','Target 1: Life threatening behaviors']].forEach(function(l){
+    hi.appendChild(el('<div class="lvl">' + ta('hi.' + l[0], '<b>' + l[1] + '</b>') + '</div>'));
+  });
+
+  // Thermometer
+  var th = '<tr><th>#</th><th>Feelings and body sensations</th><th>Color</th></tr>';
+  range(-10, 10).reverse().forEach(function(n){
+    var k = 'th.' + n;
+    th += '<tr data-row="' + k + '"><td class="n">' + (n > 0 ? '+' + n : n) + '</td><td><input data-k="' + k + '.desc"></td>' +
+      '<td><select data-k="' + k + '.zone">' + opts(['Red','Green','Blue']) + '</select></td></tr>';
+  });
+  document.getElementById('th-table').innerHTML = th;
+  function tint(){ document.querySelectorAll('.therm tr[data-row]').forEach(function(r){
+    var s = r.querySelector('select'); r.className = s.value ? 'z-' + s.value.toLowerCase() : ''; }); }
+
+  // Exposure tracking
+  function exposures(id, prefix, behLabel, effLabel){
+    var box = document.getElementById(id);
+    for (var e = 1; e <= 5; e++){
+      var k = prefix + e + '.', act = '<select data-k="KEY">' + opts(range(-10, 10)) + '</select>';
+      box.appendChild(el('<div class="entry"><h4>Exposure ' + e + '</h4>' +
+        ta(k + 'what', 'Exposure') + inp(k + 'when', 'Day, time, and length') + ta(k + 'beh', behLabel) +
+        '<div class="grid2" style="grid-template-columns:repeat(3,1fr)">' +
+        '<label>Before' + act.replace('KEY', k + 'pre') + '</label>' +
+        '<label>Highest or lowest' + act.replace('KEY', k + 'peak') + '</label>' +
+        '<label>End' + act.replace('KEY', k + 'end') + '</label></div>' +
+        ta(k + 'eff', effLabel) + '</div>'));
+    }
+  }
+  exposures('ex-assigned', 'exa', 'Sensory support or activation-reduction behaviors I may be tempted to use or plan to use',
+    'Was I able to resist the sensory support or anxiety-reduction behaviors, or use them effectively?');
+  exposures('ex-program', 'exp', 'Sensory support or activation-reduction behaviors I can plan to use during the exposure',
+    'Was the sensory support or activation-reduction behavior effective in supporting me during the program exposure?');
+
+  // Vulnerability and repair
+  var vr = document.getElementById('vr-list'), cr = document.getElementById('cr-list');
+  for (var v = 1; v <= 5; v++) vr.appendChild(el('<div class="q">' + inp('vr' + v, v + '.') + '</div>'));
+  for (var r = 1; r <= 3; r++) cr.appendChild(el('<div class="q">' + inp('cr' + r, r + '.') + '</div>'));
+
+  // Save and restore, local only
+  var data = {};
+  try { data = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { data = {}; }
+  var fields = document.querySelectorAll('[data-k]'), savedEl = document.getElementById('saved'), timer;
+  fields.forEach(function(f){ if (data[f.dataset.k] != null) f.value = data[f.dataset.k]; });
+  tint();
+  function save(){
+    try { localStorage.setItem(KEY, JSON.stringify(data)); savedEl.textContent = 'Saved on this device'; }
+    catch (e) { savedEl.textContent = 'Not saving: this browser is blocking storage. Print to keep a copy.'; }
+  }
+  document.addEventListener('input', function(ev){
+    var f = ev.target; if (!f.dataset || !f.dataset.k) return;
+    if (f.value === '') delete data[f.dataset.k]; else data[f.dataset.k] = f.value;
+    if (f.closest('.therm')) tint();
+    savedEl.textContent = 'Saving…'; clearTimeout(timer); timer = setTimeout(save, 400);
+  });
+  document.addEventListener('change', function(ev){ ev.target.dispatchEvent(new Event('input', {bubbles: true})); });
+  document.getElementById('clear').addEventListener('click', function(){
+    if (!confirm('Clear every entry in this workbook on this device? This cannot be undone.')) return;
+    data = {}; try { localStorage.removeItem(KEY); } catch (e) {}
+    fields.forEach(function(f){ f.value = ''; }); tint(); savedEl.textContent = 'Cleared';
+  });
+})();
+</script>
+</body>
+</html>
