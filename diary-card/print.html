@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Diary Card, printable sheets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+<style>
+@page{size:letter;margin:0}
+*,*::before,*::after{box-sizing:border-box}
+html{background:#e7e5e4}
+body{margin:0;font:9.5pt/1.3 'Inter',-apple-system,'Segoe UI',system-ui,sans-serif;color:#000}
+
+.bar{position:sticky;top:0;z-index:5;background:#1c1917;color:#fff;padding:.6rem 1rem;display:flex;gap:.6rem 1.2rem;flex-wrap:wrap;align-items:center;font:14px/1.4 system-ui,sans-serif}
+.bar label{display:flex;align-items:center;gap:.4rem}
+.bar select,.bar button{font:inherit;min-height:36px}
+.bar button{padding:0 1rem;border:0;border-radius:6px;background:#fff;color:#1c1917;font-weight:600;cursor:pointer}
+.bar .tip{flex-basis:100%;color:#d6d3d1;font-size:12.5px}
+.sheets{padding:16px 8px;overflow-x:auto}
+
+.sheet{width:8.5in;height:10.95in;background:#fff;margin:0 auto 16px;padding:.5in;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.25);display:flex;flex-direction:column;break-after:page}
+
+.hd{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2pt solid #000;padding-bottom:.05in;margin-bottom:.06in;min-height:.62in}
+.title{font-family:'Newsreader',Georgia,serif;font-weight:600;font-size:21pt;line-height:1}
+.sub{font-size:8.5pt;margin-top:.04in}
+.fields{display:flex;gap:.25in;font-size:9pt}
+.fields span{display:flex;align-items:flex-end;gap:.06in}
+.fields u{display:inline-block;border-bottom:1pt solid #000;height:.2in;text-decoration:none}
+.dw{display:inline-block;border:1pt solid #000;border-radius:999px;padding:0 .07in;margin-left:.04in;font-size:8pt}
+.sub{white-space:nowrap}
+
+.sec{margin-top:.12in}
+.sh{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1pt solid #000;padding-bottom:1pt;margin-bottom:.07in}
+.sh b{font-size:9pt;letter-spacing:.07em;text-transform:uppercase}
+.sh span{font-size:8pt}
+
+.c{display:inline-flex;align-items:center;justify-content:center;width:.26in;height:.26in;border:1pt solid #000;border-radius:50%;font-style:normal;font-size:8pt;font-weight:500;flex:none}
+.therm{display:flex;justify-content:space-between}
+.therm .c{width:.28in;height:.28in;font-size:7.5pt}
+.ends{display:flex;justify-content:space-between;font-size:8pt;margin-top:.03in}
+
+.two{display:flex;gap:.2in}
+.two > div{width:3.65in}
+.er{display:flex;align-items:center;height:.3in}
+.er .lab{width:1.15in;font-size:9.5pt}
+.er .cs{display:flex;gap:.1in}
+
+.tr{display:flex;align-items:flex-end;gap:.2in;height:.52in;padding-bottom:.04in}
+.tr .nm{width:3.0in}
+.tr .lv{font-size:7pt;letter-spacing:.06em;text-transform:uppercase}
+.ln1{border-bottom:1pt solid #000;height:.22in;font-size:10pt;line-height:.2in;white-space:nowrap;overflow:hidden}
+.tr .lab{font-size:8pt;margin-right:.08in;align-self:center}
+.tr .grp{display:flex;align-items:center}
+.tr .cs{display:flex;gap:.1in}
+
+.sr{display:flex;align-items:flex-end;justify-content:space-between;height:.3in;padding-bottom:.02in}
+.sr .nm{width:4.3in}
+.sr .cs{display:flex;gap:.08in;align-items:center}
+.legend{font-size:7.5pt;line-height:1.3;margin-top:.04in}
+
+.words .ln{height:.3in;border-bottom:.75pt solid #000}
+.bring{display:flex;justify-content:flex-end;align-items:center;gap:.08in;margin-top:.1in;font-size:9.5pt}
+.box{display:inline-block;width:.2in;height:.2in;border:1.25pt solid #000}
+
+.foot{margin-top:auto;border-top:.5pt solid #000;padding-top:.05in;font-size:7.5pt;text-align:center;text-wrap:balance}
+.foot span,.starters span{white-space:nowrap}
+
+.back .hd{min-height:.62in}
+.starters{font-size:8.5pt;margin:.06in 0 .1in;text-wrap:balance}
+.lines{flex:1;display:flex;flex-direction:column;margin-bottom:.14in}
+.lines .ln{flex:1;border-bottom:.75pt solid #555}
+.lines .ln:last-child{border-bottom:0}
+
+@media print{
+  html{background:#fff}
+  .bar{display:none !important}
+  .sheets{padding:0;overflow:visible;zoom:1 !important}
+  .sheet{margin:0;box-shadow:none}
+  .sheet:last-child{break-after:auto}
+}
+@media screen and (max-width:700px){
+  .sheet{margin-left:0}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <label>Sheets
+    <select id="n"><option value="1">1 day</option><option value="7">7 days</option></select>
+  </label>
+  <label><input type="checkbox" id="names"> Use my targets and skills</label>
+  <label><input type="checkbox" id="back" checked> Free-writing page on the back</label>
+  <button type="button" id="print">Print</button>
+  <span class="tip" id="found"></span>
+  <span class="tip">In the print window: paper size Letter, margins None, headers and footers off. For two sides, choose double-sided and flip on the long edge.</span>
+</div>
+
+<div class="sheets" id="sheets"></div>
+
+<script>
+(function(){
+'use strict';
+var DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+var EMO1 = ['Pain or hurt','Sadness','Shame','Anger','Fear'];
+var EMO2 = ['Disgust','Jealousy','Guilt','Joy','Trust'];
+var LEVELS = ['Life threatening','Therapy interfering','Quality of life interfering'];
+var LEGEND = '0 not thought about or used · 1 thought about, not used, did not want to · 2 thought about, not used, wanted to · 3 tried, could not use them · 4 tried, could use them, did not help · 5 tried, could use them, helped · 6 used automatically, did not help · 7 used automatically, helped';
+var CRISIS = '<span>If you need support right now:</span> <span>988 Suicide &amp; Crisis Lifeline, call or text 988</span> · <span>Crisis Text Line, text HOME to 741741</span> · <span>Emergency, 911</span> · <span>Follow your safety plan</span>';
+
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function circles(a, b){ var s = ''; for (var i = a; i <= b; i++) s += '<i class="c">' + i + '</i>'; return s; }
+
+var saved = {targets:['','',''], skills:[]};
+try {
+  var raw = localStorage.getItem('diary-card:v1');
+  if (raw){ var d = JSON.parse(raw); if (d && d.settings){ saved.targets = (d.settings.targets || []).concat(['','','']).slice(0,3); saved.skills = d.settings.skills || []; } }
+} catch (e) {}
+var haveSaved = saved.targets.some(function(t){ return t; }) || saved.skills.length > 0;
+
+function opts(){
+  var q = new URLSearchParams(location.search);
+  return {n: q.get('n') === '7' ? 7 : 1, names: q.get('names') === '1', back: q.get('back') !== '0'};
+}
+
+function emoRows(list){
+  return list.map(function(n){ return '<div class="er"><span class="lab">' + n + '</span><span class="cs">' + circles(0,5) + '</span></div>'; }).join('');
+}
+
+function front(i, o){
+  var day = o.n === 7
+    ? '<div class="sub"><b>' + DAYS[i] + '</b></div>'
+    : '<div class="sub">Day:' + DAYS.map(function(d){ return '<span class="dw">' + d.slice(0,3) + '</span>'; }).join('') + '</div>';
+  var skills = o.names ? saved.skills.slice(0, 8) : [];
+  var rows = Math.max(6, skills.length);
+  var wordLines = 3 - (rows - 6);
+  var h = '<section class="sheet front">';
+  h += '<div class="hd"><div><div class="title">Diary Card</div>' + day + '</div>' +
+       '<div class="fields"><span>Name <u style="width:1.75in"></u></span><span>Date <u style="width:1in"></u></span></div></div>';
+
+  h += '<div class="sec"><div class="sh"><b>Overall intensity today</b><span>Personal Emotional Thermometer. Circle one.</span></div>' +
+       '<div class="therm">' + circles(-10, 10) + '</div>' +
+       '<div class="ends"><span>−10 shut down</span><span>+10 agitated</span></div></div>';
+
+  h += '<div class="sec"><div class="sh"><b>Emotions</b><span>Circle one per row. 0 none, 1 slight, 5 strongest.</span></div>' +
+       '<div class="two"><div>' + emoRows(EMO1) + '</div><div>' + emoRows(EMO2) + '</div></div></div>';
+
+  h += '<div class="sec"><div class="sh"><b>Targets and urges</b><span>Urge 0 none to 5 strongest. Did you act on it?</span></div>';
+  LEVELS.forEach(function(l, k){
+    var name = o.names ? saved.targets[k] : '';
+    h += '<div class="tr"><div class="nm"><div class="lv">' + l + '</div><div class="ln1">' + esc(name) + '</div></div>' +
+         '<div class="grp"><span class="lab">Urge</span><span class="cs">' + circles(0,5) + '</span></div>' +
+         '<div class="grp"><span class="lab">Acted</span><span class="cs"><i class="c" style="width:.34in;border-radius:999px">Yes</i><i class="c" style="width:.34in;border-radius:999px">No</i></span></div></div>';
+  });
+  h += '</div>';
+
+  h += '<div class="sec"><div class="sh"><b>Skills</b><span>Name each skill, then rate it 0 to 7.</span></div>';
+  for (var s = 0; s < rows; s++){
+    h += '<div class="sr"><div class="nm"><div class="ln1">' + esc(skills[s] || '') + '</div></div><span class="cs">' + circles(0,7) + '</span></div>';
+  }
+  h += '<div class="legend">' + LEGEND + '</div></div>';
+
+  h += '<div class="sec words"><div class="sh"><b>Today in a few words</b><span>' + (o.back ? 'More room on the back.' : '') + '</span></div>';
+  for (var w = 0; w < wordLines; w++) h += '<div class="ln"></div>';
+  h += '<div class="bring"><span class="box"></span> Bring this to session</div></div>';
+
+  h += '<div class="foot">' + CRISIS + '</div></section>';
+  return h;
+}
+
+function back(i, o){
+  var h = '<section class="sheet back">';
+  h += '<div class="hd"><div><div class="title">Free writing</div><div class="sub">' + (o.n === 7 ? '<b>' + DAYS[i] + '</b>' : 'Diary Card') + '</div></div>' +
+       '<div class="fields"><span>Date <u style="width:1.4in"></u></span></div></div>';
+  h += '<div class="starters"><span>Starters, use any or none:</span> <span>Something that was hard</span> · <span>Something that helped</span> · <span>What I noticed in my body</span> · <span>What I want to tell my therapist</span></div>';
+  h += '<div class="lines">';
+  for (var l = 0; l < 22; l++) h += '<div class="ln"></div>';
+  h += '</div><div class="foot">' + CRISIS + '</div></section>';
+  return h;
+}
+
+function render(){
+  var o = opts(), html = '';
+  for (var i = 0; i < o.n; i++){ html += front(i, o); if (o.back) html += back(i, o); }
+  $('sheets').innerHTML = html;
+  $('n').value = String(o.n); $('names').checked = o.names; $('back').checked = o.back;
+  $('names').disabled = !haveSaved;
+  $('found').textContent = haveSaved
+    ? 'Saved on this device: ' + saved.targets.filter(Boolean).length + ' target names, ' + saved.skills.length + ' skills.'
+    : 'No target names or skills are saved on this device, so the lines print blank.';
+}
+function update(){
+  var q = new URLSearchParams();
+  q.set('n', $('n').value); q.set('names', $('names').checked ? '1' : '0'); q.set('back', $('back').checked ? '1' : '0');
+  history.replaceState(null, '', '?' + q.toString());
+  render();
+}
+$('n').addEventListener('change', update);
+$('names').addEventListener('change', update);
+$('back').addEventListener('change', update);
+$('print').addEventListener('click', function(){ window.print(); });
+function fit(){
+  var z = Math.min(1, (document.documentElement.clientWidth - 16) / 816);
+  $('sheets').style.zoom = z < 1 ? String(z) : '';
+}
+window.addEventListener('resize', fit);
+render(); fit();
+})();
+</script>
+</body>
+</html>

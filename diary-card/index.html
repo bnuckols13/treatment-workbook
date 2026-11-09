@@ -165,6 +165,8 @@ summary::-webkit-details-marker{display:none}
 summary::after{content:"";width:9px;height:9px;margin-left:.7rem;border-right:2.5px solid var(--ink-3);border-bottom:2.5px solid var(--ink-3);transform:rotate(45deg);transition:transform .15s}
 details[open] summary::after{transform:rotate(-135deg)}
 .actions{display:flex;flex-wrap:wrap;gap:8px;margin:1rem 0}
+a.btn{display:inline-flex;align-items:center;text-decoration:none;color:inherit}
+.paper h3{font-size:1.15rem;margin:1.4rem 0 .3rem}
 .copyarea{width:100%;min-height:10rem;font-size:.9rem}
 .msg{font-size:.9rem;color:var(--ink-2)}
 .danger{color:var(--red);border-color:var(--red)}
@@ -249,6 +251,15 @@ details[open] summary::after{transform:rotate(-135deg)}
     <p class="msg" id="copyMsg"></p>
     <textarea class="copyarea" id="copyArea" readonly></textarea>
   </div>
+  <section class="paper noprint" aria-labelledby="paperH">
+    <h3 id="paperH">Fill in on paper</h3>
+    <p class="msg">Each sheet is one day. Ratings are on the front and free writing is on the back. Print double-sided and flip on the long edge.</p>
+    <div class="actions">
+      <a class="btn" href="print.html?n=7&amp;names=1&amp;back=1" target="_blank" rel="noopener">Print 7 sheets with my targets and skills</a>
+      <a class="btn" href="pdf/diary-card-day.pdf" download>Blank day, PDF</a>
+      <a class="btn" href="pdf/diary-card-week.pdf" download>Blank 7 days, PDF</a>
+    </div>
+  </section>
   <details class="noprint">
     <summary>Backup and data</summary>
     <p class="msg">Entries live in this browser only. Clearing browser data deletes them. Download a backup to keep a copy or move to another device.</p>
